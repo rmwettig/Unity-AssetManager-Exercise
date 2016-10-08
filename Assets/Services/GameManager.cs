@@ -15,10 +15,13 @@ public class GameManager : MonoBehaviour
         IAsyncService asyncService = GetComponent<IAsyncService>();
         if(asyncService != null)
         {
+            //create objects
             assetManager = new AssetManager(metaDataFiles.Length);
             JSONReader jsonReader = new JSONReader(metaDataFiles);
-
             WebLoader webLoader = new WebLoader(asyncService, metaDataReader);
+            //connect messaging
+            jsonReader.MetaDataLoaded += webLoader.OnMetaDataLoaded;
+
             metaDataReader.StartReading();
         }
         else
