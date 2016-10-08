@@ -58,18 +58,6 @@ public class GameManager : MonoBehaviour
 
     private void CreatePlayer()
     {
-        IAsset character = assetManager.FindAssetByName("TestCharacter");
-        if(character != null)
-        {
-            GameObject player = character.TryGetAsType<GameObject>();
-            if(player != null)
-            {
-                Instantiate<GameObject>(player);
-            }
-        }
-        else
-        {
-            Debug.Log("no character found");
-        }
+        
     }
 }
