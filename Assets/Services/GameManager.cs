@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
                 //start processing
                 metaDataReader.StartReading();
                 CreatePlayer(asyncService);
+                CreateAudioSource(asyncService);
             }
             else
             {
@@ -53,5 +54,10 @@ public class GameManager : MonoBehaviour
     private void CreatePlayer(IAsyncService asyncService)
     {
         asyncService.RunTask(new InstantiateCharacter(assetManager, "TestCharacter"));
+    }
+
+    private void CreateAudioSource(IAsyncService asyncService)
+    {
+        asyncService.RunTask(new InstantiateAudioClip(assetManager, "TestAudioAsset"));
     }
 }
