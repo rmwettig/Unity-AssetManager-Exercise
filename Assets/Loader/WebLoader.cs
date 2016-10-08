@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class WebLoader : IAssetLoader
 {
+    public event Notification<IAsset> Completed = null;
+
     private IAsyncService asyncService = null;
     
     public WebLoader(IAsyncService service, IMetaDataReader reader)
@@ -30,13 +32,33 @@ public class WebLoader : IAssetLoader
         if(sender.MetaData.Type.ToLower().Equals("character"))
         {
             LoadCharacterFromStream charLoader = new LoadCharacterFromStream(result, sender.MetaData);
+            charLoader.Completed += OnTaskCompleted;
             asyncService.RunTask(charLoader);
         }
 
         if (sender.MetaData.Type.ToLower().Equals("audio"))
         {
             LoadAudioClipFromStream audioLoader = new LoadAudioClipFromStream(result, sender.MetaData);
+            audioLoader.Completed += OnTaskCompleted;
             asyncService.RunTask(audioLoader);
+        }
+    }
+
+    private void OnTaskCompleted(LoadCharacterFromStream task, IAsset asset)
+    {
+        task.Completed -= OnTaskCompleted;
+        if(Completed != null)
+        {
+            Completed(asset);
+        }
+    }
+
+    private void OnTaskCompleted(LoadAudioClipFromStream task, IAsset asset)
+    {
+        task.Completed -= OnTaskCompleted;
+        if (Completed != null)
+        {
+            Completed(asset);
         }
     }
 }
