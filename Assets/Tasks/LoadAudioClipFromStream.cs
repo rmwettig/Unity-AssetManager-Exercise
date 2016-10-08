@@ -35,7 +35,7 @@ public class LoadAudioClipFromStream : IAsyncTask
     {
         if (source.assetBundle != null)
         {
-            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<AudioClip>(metaData.Name);
+            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<AudioClip>(metaData.AssetName);
             yield return request;
             if (Completed != null)
             {

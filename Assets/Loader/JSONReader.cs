@@ -22,6 +22,7 @@ public class JSONReader : IMetaDataReader
             if (asset != null)
             {
                 AssetInfo ai = JsonUtility.FromJson<AssetInfo>(asset.text);
+                Debug.Log(ai.AssetName);
                 if (MetaDataLoaded != null)
                 {
                     MetaDataLoaded(ai);

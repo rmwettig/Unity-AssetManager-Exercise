@@ -38,7 +38,7 @@ public class LoadCharacterFromStream : IAsyncTask
         //and create a new character asset from it
         if(source.assetBundle != null)
         {
-            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<GameObject>(metaData.Name);
+            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<GameObject>(metaData.AssetName);
             yield return request;
             if(Completed != null)
             {

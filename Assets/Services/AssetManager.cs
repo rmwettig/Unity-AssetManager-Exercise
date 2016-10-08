@@ -20,7 +20,7 @@ public class AssetManager : IAssetManager
         for (int i = 0; i < assets.Count; i++)
         {
             IAsset a = assets[i];
-            if (a.AssetInfo.Name.ToLower().Equals(name.ToLower()))
+            if (a.AssetInfo.AssetName.ToLower().Equals(name.ToLower()))
             {
                 return a;
             }

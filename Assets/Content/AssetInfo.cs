@@ -8,7 +8,7 @@ using System;
 public class AssetInfo
 {
     [SerializeField]
-    private string name = "";
+    private string Name = "";
 
     [SerializeField]
     private string url = "";
@@ -16,11 +16,11 @@ public class AssetInfo
     [SerializeField]
     private string type = "";
 
-    public string Name
+    public string AssetName
     {
         get
         {
-            return name;
+            return Name;
         }
     }
 
