@@ -16,13 +16,18 @@ public class GameManager : MonoBehaviour
         if(asyncService != null)
         {
             //create objects
-            assetManager = new AssetManager(metaDataFiles.Length);
+            AssetManager am = new AssetManager(metaDataFiles.Length);
             JSONReader jsonReader = new JSONReader(metaDataFiles);
             WebLoader webLoader = new WebLoader(asyncService, metaDataReader);
             //connect messaging
             jsonReader.MetaDataLoaded += webLoader.OnMetaDataLoaded;
-
+            webLoader.Completed += am.OnAssetLoaded;
+            //start processing
             metaDataReader.StartReading();
+            //save objects
+            assetManager = am;
+            metaDataReader = jsonReader;
+            assetLoader = webLoader;
         }
         else
         {
