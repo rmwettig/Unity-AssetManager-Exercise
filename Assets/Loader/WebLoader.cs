@@ -17,6 +17,16 @@ public class WebLoader : IAssetLoader
 
     public void OnMetaDataLoaded(AssetInfo assetInfo)
     {
+        LoadFromWebStream ws = new LoadFromWebStream(assetInfo);
+        ws.Completed += OnWebStreamCompleted;
+        asyncService.RunTask(ws);
+    }
+
+    private void OnWebStreamCompleted(LoadFromWebStream sender, WWW result)
+    {
+        //remove delegate as task is not reused later on
+        //and allow the object to be GC'ed
+        sender.Completed -= OnWebStreamCompleted;
 
     }
 }
