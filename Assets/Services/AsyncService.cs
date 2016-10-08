@@ -14,7 +14,7 @@ public class AsyncService : MonoBehaviour, IAsyncService
 
     private IEnumerator StartTask(IAsyncTask task)
     {
-        while(!task.IsDone || !task.IsCanceled)
+        while(!task.IsCanceled && !task.IsDone)
         {
             yield return task.Run();
         }
