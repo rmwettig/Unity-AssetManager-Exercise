@@ -32,5 +32,11 @@ public class WebLoader : IAssetLoader
             LoadCharacterFromStream charLoader = new LoadCharacterFromStream(result, sender.MetaData);
             asyncService.RunTask(charLoader);
         }
+
+        if (sender.MetaData.Type.ToLower().Equals("audio"))
+        {
+            LoadAudioClipFromStream audioLoader = new LoadAudioClipFromStream(result, sender.MetaData);
+            asyncService.RunTask(audioLoader);
+        }
     }
 }
