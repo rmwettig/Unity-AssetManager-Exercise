@@ -17,10 +17,15 @@ public class JSONReader : IMetaDataReader
     {
         for(int i = 0; i < files.Length; i++)
         {
-            AssetInfo ai = JsonUtility.FromJson<AssetInfo>(files[i].text);
-            if(MetaDataLoaded != null)
+            TextAsset asset = files[i];
+
+            if (asset != null)
             {
-                MetaDataLoaded(ai);
+                AssetInfo ai = JsonUtility.FromJson<AssetInfo>(asset.text);
+                if (MetaDataLoaded != null)
+                {
+                    MetaDataLoaded(ai);
+                } 
             }
         }
     }

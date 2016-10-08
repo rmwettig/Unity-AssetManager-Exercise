@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         IAsyncService asyncService = GetComponent<IAsyncService>();
         if (asyncService != null)
         {
-            if (metaDataFiles != null)
+            if (metaDataFiles != null && metaDataFiles.Length > 0)
             {
                 //create objects
                 AssetManager am = new AssetManager(metaDataFiles.Length);
@@ -24,16 +24,17 @@ public class GameManager : MonoBehaviour
                 //connect messaging
                 jsonReader.MetaDataLoaded += webLoader.OnMetaDataLoaded;
                 webLoader.Completed += am.OnAssetLoaded;
-                //start processing
-                metaDataReader.StartReading();
+                
                 //save objects
                 assetManager = am;
                 metaDataReader = jsonReader;
                 assetLoader = webLoader;
+                //start processing
+                metaDataReader.StartReading();
             }
             else
             {
-                Debug.LogError("No asset meta info files found.")
+                Debug.LogError("No asset meta info files found.");
             }
         }
         else
