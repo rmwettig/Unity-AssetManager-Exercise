@@ -33,16 +33,16 @@ public class LoadAudioClipFromStream : IAsyncTask
 
     public IEnumerator Run()
     {
-        if (source.assetBundle != null)
+        AudioClip clip = source.audioClip;
+        if (clip != null)
         {
-            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<AudioClip>(metaData.AssetName);
-            yield return request;
             if (Completed != null)
             {
-                IAsset asset = new CharacterAsset(metaData, (GameObject)request.asset);
+                IAsset asset = new AudioAsset(metaData, clip);
                 Completed(this, asset);
             }
-            isDone = request.isDone;
+            isDone = true;
+            yield break;
         }
         else
         {

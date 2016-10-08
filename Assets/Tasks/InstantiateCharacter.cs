@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Instantiates a game object as soon as it becomes available at the asset manager
+/// </summary>
 public class InstantiateCharacter : IAsyncTask
 {
     private IAssetManager assetManager = null;

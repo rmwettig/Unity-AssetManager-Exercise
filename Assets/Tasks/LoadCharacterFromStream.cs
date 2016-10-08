@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Asynchronously loads a game object from a web stream
+/// </summary>
 public class LoadCharacterFromStream : IAsyncTask
 {
     public event Notification<LoadCharacterFromStream, IAsset> Completed = null;
