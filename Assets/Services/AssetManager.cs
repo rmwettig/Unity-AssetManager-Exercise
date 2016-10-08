@@ -50,7 +50,7 @@ public class AssetManager : IAssetManager
 
     public void AddAsset(IAsset asset)
     {
-        throw new System.NotImplementedException();
+        assets.Add(asset);
     }
 
     public void OnAssetLoaded(IAsset asset)
