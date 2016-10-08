@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class WebLoader : IAssetLoader
 {
-    public event Notification<IAsset> Completed = null;
+    public event Notification<IAsset> Loaded = null;
 
     private IAsyncService asyncService = null;
     
@@ -47,18 +47,18 @@ public class WebLoader : IAssetLoader
     private void OnTaskCompleted(LoadCharacterFromStream task, IAsset asset)
     {
         task.Completed -= OnTaskCompleted;
-        if(Completed != null)
+        if(Loaded != null)
         {
-            Completed(asset);
+            Loaded(asset);
         }
     }
 
     private void OnTaskCompleted(LoadAudioClipFromStream task, IAsset asset)
     {
         task.Completed -= OnTaskCompleted;
-        if (Completed != null)
+        if (Loaded != null)
         {
-            Completed(asset);
+            Loaded(asset);
         }
     }
 }
