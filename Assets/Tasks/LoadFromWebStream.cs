@@ -8,7 +8,8 @@ public class LoadFromWebStream : IAsyncTask
     public event Notification<LoadFromWebStream, WWW> Completed = null;
 
     private AssetInfo metaData = null;
-
+    private bool isDone = false;
+    private bool isCanceled = false;
     public AssetInfo MetaData
     {
         get
@@ -24,12 +25,18 @@ public class LoadFromWebStream : IAsyncTask
 
     public bool IsDone
     {
-        get { throw new System.NotImplementedException(); }
+        get 
+        {
+            return isDone;
+        }
     }
 
     public bool IsCanceled
     {
-        get { throw new System.NotImplementedException(); }
+        get 
+        {
+            return isCanceled;
+        }
     }
 
     public IEnumerator Run()
@@ -40,5 +47,6 @@ public class LoadFromWebStream : IAsyncTask
         {
             Completed(this, webStream);
         }
+        isDone = true;
     }
 }
