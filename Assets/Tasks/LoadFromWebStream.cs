@@ -9,6 +9,14 @@ public class LoadFromWebStream : IAsyncTask
 
     private AssetInfo metaData = null;
 
+    public AssetInfo MetaData
+    {
+        get
+        {
+            return metaData;
+        }
+    }
+
     public LoadFromWebStream(AssetInfo assetInfo)
     {
         metaData = assetInfo;
