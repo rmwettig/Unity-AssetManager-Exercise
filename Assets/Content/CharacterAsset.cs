@@ -23,9 +23,12 @@ public class CharacterAsset : IAsset
 
     public T TryGetAsType<T>()
     {
-        if(gameObject.GetType() == typeof(T))
+        if (gameObject != null)
         {
-            return (T)Convert.ChangeType(gameObject, typeof(T));
+            if (gameObject.GetType() == typeof(T))
+            {
+                return (T)Convert.ChangeType(gameObject, typeof(T));
+            } 
         }
         return default(T);
     }

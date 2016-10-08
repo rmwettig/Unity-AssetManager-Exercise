@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
                 
                 //start processing
                 metaDataReader.StartReading();
-                CreatePlayer();
+                CreatePlayer(asyncService);
             }
             else
             {
@@ -50,14 +50,8 @@ public class GameManager : MonoBehaviour
         assetLoader = new WebLoader(asyncService, metaDataReader);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CreatePlayer(IAsyncService asyncService)
     {
-
-    }
-
-    private void CreatePlayer()
-    {
-        
+        asyncService.RunTask(new InstantiateCharacter(assetManager, "TestCharacter"));
     }
 }

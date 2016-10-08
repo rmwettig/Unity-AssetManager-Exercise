@@ -22,6 +22,8 @@ public class AssetManager : IAssetManager
             IAsset a = assets[i];
             if (a.AssetInfo.AssetName.ToLower().Equals(name.ToLower()))
             {
+                Debug.Log("matched: " +a.AssetInfo.AssetName);
+
                 return a;
             }
         }

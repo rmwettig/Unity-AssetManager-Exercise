@@ -32,8 +32,11 @@ public class InstantiateCharacter : IAsyncTask
     public IEnumerator Run()
     {
         IAsset character = assetManager.FindAssetByName(assetName);
-        yield return character;
-
+        while(character == null)
+        {
+            character = assetManager.FindAssetByName(assetName);
+            yield return null;
+        }
         GameObject player = character.TryGetAsType<GameObject>();
         if (player != null)
         {
