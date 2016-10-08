@@ -8,6 +8,7 @@ public class LoadCharacterFromStream : IAsyncTask
     private WWW source = null;
     private AssetInfo metaData = null;
     private bool isCanceled = false;
+    private bool isDone = false;
     public LoadCharacterFromStream(WWW stream, AssetInfo assetInfo)
     {
         source = stream;
@@ -16,12 +17,18 @@ public class LoadCharacterFromStream : IAsyncTask
 
     public bool IsDone
     {
-        get { throw new System.NotImplementedException(); }
+        get 
+        {
+            return isDone;
+        }
     }
 
     public bool IsCanceled
     {
-        get { return isCanceled; }
+        get
+        { 
+            return isCanceled; 
+        }
     }
 
     public IEnumerator Run()
@@ -32,8 +39,10 @@ public class LoadCharacterFromStream : IAsyncTask
             yield return request;
             if(Completed != null)
             {
-                Completed(this, null);
+                IAsset asset = new CharacterAsset(metaData, (GameObject)request.allAssets[0]);
+                Completed(this, asset);
             }
+            isDone = true;
         }
         else
         {
