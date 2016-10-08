@@ -33,16 +33,19 @@ public class LoadCharacterFromStream : IAsyncTask
 
     public IEnumerator Run()
     {
+        //if an asset bundle is present
+        //extract asset with given name
+        //and create a new character asset from it
         if(source.assetBundle != null)
         {
-            AssetBundleRequest request = source.assetBundle.LoadAllAssetsAsync<GameObject>();
+            AssetBundleRequest request = source.assetBundle.LoadAssetAsync<GameObject>(metaData.Name);
             yield return request;
             if(Completed != null)
             {
-                IAsset asset = new CharacterAsset(metaData, (GameObject)request.allAssets[0]);
+                IAsset asset = new CharacterAsset(metaData, (GameObject)request.asset);
                 Completed(this, asset);
             }
-            isDone = true;
+            isDone = request.isDone;
         }
         else
         {
