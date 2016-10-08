@@ -18,16 +18,10 @@ public class GameManager : MonoBehaviour
             if (metaDataFiles != null && metaDataFiles.Length > 0)
             {
                 //create objects
-                AssetManager am = new AssetManager(metaDataFiles.Length);
-                metaDataReader = new JSONReader(metaDataFiles);
-                assetLoader = new WebLoader(asyncService, metaDataReader);
+                InitializeProcessors(asyncService);
                 //connect messaging
-                metaDataReader.MetaDataLoaded += assetLoader.OnMetaDataLoaded;
-                assetLoader.Loaded += am.OnAssetLoaded;
+                InitializeEventHandling();
                 
-                //save objects
-                assetManager = am;
-                assetLoader = webLoader;
                 //start processing
                 metaDataReader.StartReading();
                 CreatePlayer();
@@ -41,6 +35,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Missing AsyncService");
         }
+    }
+
+    private void InitializeEventHandling()
+    {
+        metaDataReader.MetaDataLoaded += assetLoader.OnMetaDataLoaded;
+        assetLoader.Loaded += assetManager.AddAsset;
+    }
+
+    private void InitializeProcessors(IAsyncService asyncService)
+    {
+        assetManager = new AssetManager(metaDataFiles.Length);
+        metaDataReader = new JSONReader(metaDataFiles);
+        assetLoader = new WebLoader(asyncService, metaDataReader);
     }
 
     // Update is called once per frame
