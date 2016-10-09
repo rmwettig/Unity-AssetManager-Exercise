@@ -47,6 +47,25 @@ public class AssetManager : IAssetManager
         return results;
     }
 
+    /// <summary>
+    /// Searches assets by arbitrary parameters given by the asset matcher
+    /// </summary>
+    /// <param name="matcher"></param>
+    /// <returns>zero or more results</returns>
+    public ICollection<IAsset> FindAssets(IAssetMatcher matcher)
+    {
+        List<IAsset> results = new List<IAsset>();
+        for(int i = 0; i < assets.Count; i++)
+        {
+            IAsset asset = assets[i];
+            if(matcher.MatchesCriterion(asset))
+            {
+                results.Add(asset);
+            }
+        }
+        return results;
+    }
+
     public void AddAsset(IAsset asset)
     {
         assets.Add(asset);
@@ -56,4 +75,7 @@ public class AssetManager : IAssetManager
     {
         AddAsset(asset);
     }
+
+
+    
 }
