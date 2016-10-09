@@ -29,4 +29,4 @@ Tasks/
 Known Issues
 	- no parenting
 	- incomplete asset unloading (should it remove all instances?)
-	- manual metadata file placement
+	- manual metadata file placement (Webplayer does not allow HDD access)
