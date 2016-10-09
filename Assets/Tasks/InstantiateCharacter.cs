@@ -7,13 +7,17 @@ using System.Collections;
 public class InstantiateCharacter : IAsyncTask
 {
     private IAssetManager assetManager = null;
+    private ILogger logger = null;
     private string assetName = null;
     private bool isDone = false;
     private bool isCanceled = false;
-    public InstantiateCharacter(IAssetManager manager, string name)
+    public InstantiateCharacter(IAssetManager manager, string name) : this(manager, null, name) { }
+
+    public InstantiateCharacter(IAssetManager manager, ILogger log, string name)
     {
         assetManager = manager;
         assetName = name;
+        logger = log;
     }
 
     public bool IsDone
@@ -48,7 +52,10 @@ public class InstantiateCharacter : IAsyncTask
         }
         else
         {
-            Debug.Log("no character found");
+            if (logger != null)
+            {
+                logger.LogError(string.Format("No character with name {0} found.", assetName));
+            }
         }
     }
 }

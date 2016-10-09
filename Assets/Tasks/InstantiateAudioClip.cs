@@ -8,13 +8,17 @@ public class InstantiateAudioClip : IAsyncTask
 {
 
     private IAssetManager assetManager = null;
+    private ILogger logger = null;
     private string assetName = null;
     private bool isDone = false;
     private bool isCanceled = false;
-    public InstantiateAudioClip(IAssetManager manager, string name)
+    public InstantiateAudioClip(IAssetManager manager, string name):this(manager, null, name) { }
+
+    public InstantiateAudioClip(IAssetManager manager, ILogger log, string name)
     {
         assetManager = manager;
         assetName = name;
+        logger = log;
     }
 
     public bool IsDone
@@ -52,7 +56,7 @@ public class InstantiateAudioClip : IAsyncTask
         }
         else
         {
-            Debug.Log("no audio clip found");
+            logger.LogError(string.Format("No audio clip with name {0} found.", assetName));
         }
     }
 }
