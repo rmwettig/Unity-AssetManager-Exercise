@@ -7,11 +7,16 @@ public class JSONReader : IMetaDataReader
 {
     public event Notification<AssetInfo> MetaDataLoaded = null;
     private TextAsset[] files = null;
+    private ILogger logger = null;
 
-    public JSONReader(params TextAsset[] jsonFiles)
+    public JSONReader(ILogger log, params TextAsset[] jsonFiles)
     {
         files = jsonFiles;
+        logger = log;
     }
+
+    public JSONReader(params TextAsset[] jsonFiles) : this(null, jsonFiles) { }
+    
 
     public void StartReading()
     {
@@ -22,7 +27,10 @@ public class JSONReader : IMetaDataReader
             if (asset != null)
             {
                 AssetInfo ai = JsonUtility.FromJson<AssetInfo>(asset.text);
-                Debug.Log(ai.AssetName);
+                if (logger != null)
+                {
+                    logger.LogInfo(string.Format("Loaded meta data for: {0}", ai.AssetName));
+                }
                 if (MetaDataLoaded != null)
                 {
                     MetaDataLoaded(ai);

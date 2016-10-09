@@ -7,14 +7,22 @@ public class WebLoader : IAssetLoader
 
     private IAsyncService asyncService = null;
     private WebStreamProcessor[] processors = null;
-    public WebLoader(IAsyncService service, params WebStreamProcessor[] streamProcessors)
+    private ILogger logger = null;
+    public WebLoader(IAsyncService service, params WebStreamProcessor[] streamProcessors) : this(service, null, streamProcessors) { }
+
+    public WebLoader(IAsyncService service, ILogger log, params WebStreamProcessor[] streamProcessors)
     {
         asyncService = service;
         processors = streamProcessors;
+        logger = log;
     }
 
     public void LoadAsset(AssetInfo assetInfo)
     {
+        if(logger!=null)
+        {
+            logger.LogInfo(string.Format("Loading {0} from {1}", assetInfo.AssetName, assetInfo.URL));
+        }
         LoadFromWebStream ws = new LoadFromWebStream(assetInfo);
         ws.Completed += OnWebStreamCompleted;
         asyncService.RunTask(ws);
@@ -38,12 +46,23 @@ public class WebLoader : IAssetLoader
                 }
             }
         }
+        else
+        {
+            if(logger!=null)
+            {
+                logger.LogError(string.Format("Could not load resource from {0}.\nReason: {1}", sender.MetaData.URL, result.error));
+            }
+        }
     }
 
     private void OnTaskCompleted(IAsset asset)
     {
         if (Loaded != null)
         {
+            if(logger!=null)
+            {
+                logger.LogInfo(string.Format("Successfully loaded {0}", asset.AssetInfo.AssetName));
+            }
             Loaded(asset);
         }
     }

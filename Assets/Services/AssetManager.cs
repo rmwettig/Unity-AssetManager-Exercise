@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class AssetManager : IAssetManager
 {
     private List<IAsset> assets = null;
-
     public AssetManager(int capacity)
     {
         assets = new List<IAsset>(capacity);
@@ -22,8 +21,6 @@ public class AssetManager : IAssetManager
             IAsset a = assets[i];
             if (a.AssetInfo.AssetName.ToLower().Equals(name.ToLower()))
             {
-                Debug.Log("matched: " +a.AssetInfo.AssetName);
-
                 return a;
             }
         }
