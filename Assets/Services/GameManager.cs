@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextAsset[] metaDataFiles = null;
 
-    private IMetaDataReader metaDataReader = null;
+    private IMetadataReader metaDataReader = null;
     private IAssetLoader assetLoader = null;
     private IAssetManager assetManager = null;
     private ILogger logger = null;

@@ -3,7 +3,7 @@ using System.Collections;
 
 public delegate void Notification<T>(T result);
 
-public class JSONReader : IMetaDataReader
+public class JSONReader : IMetadataReader
 {
     public event Notification<AssetInfo> MetaDataLoaded = null;
     private TextAsset[] files = null;
