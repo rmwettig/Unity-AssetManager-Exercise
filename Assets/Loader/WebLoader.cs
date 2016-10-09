@@ -6,10 +6,11 @@ public class WebLoader : IAssetLoader
     public event Notification<IAsset> Loaded = null;
 
     private IAsyncService asyncService = null;
-    
-    public WebLoader(IAsyncService service, IMetaDataReader reader)
+    private WebStreamProcessor[] processors = null;
+    public WebLoader(IAsyncService service, params WebStreamProcessor[] streamProcessors)
     {
         asyncService = service;
+        processors = streamProcessors;
     }
 
     public void StartLoading()
@@ -26,21 +27,35 @@ public class WebLoader : IAssetLoader
 
     private void OnWebStreamCompleted(LoadFromWebStream sender, WWW result)
     {
-        //remove delegate as task is not reused later on
-        //and allow the object to be GC'ed
-        sender.Completed -= OnWebStreamCompleted;
-        if(sender.MetaData.Type.ToLower().Equals("character"))
+        if (string.IsNullOrEmpty(result.error))
         {
-            LoadCharacterFromStream charLoader = new LoadCharacterFromStream(result, sender.MetaData);
-            charLoader.Completed += OnTaskCompleted;
-            asyncService.RunTask(charLoader);
-        }
+            //remove delegate as task is not reused later on
+            //and allow the object to be GC'ed
+            sender.Completed -= OnWebStreamCompleted;
+            for (int i = 0; i < processors.Length;i++ )
+            {
+                WebStreamProcessor processor = processors[i];
+                if(processor.CanProcessType(sender.MetaData.Type))
+                {
+                    asyncService.RunTask(processor.CreateProcessingTask(result, sender.MetaData));
+                    break;
+                }
+            }
 
-        if (sender.MetaData.Type.ToLower().Equals("audio"))
-        {
-            LoadAudioClipFromStream audioLoader = new LoadAudioClipFromStream(result, sender.MetaData);
-            audioLoader.Completed += OnTaskCompleted;
-            asyncService.RunTask(audioLoader);
+                
+            if (sender.MetaData.Type.ToLower().Equals("character"))
+            {
+                LoadCharacterFromStream charLoader = new LoadCharacterFromStream(result, sender.MetaData);
+                charLoader.Completed += OnTaskCompleted;
+                asyncService.RunTask(charLoader);
+            }
+
+            if (sender.MetaData.Type.ToLower().Equals("audio"))
+            {
+                LoadAudioClipFromStream audioLoader = new LoadAudioClipFromStream(result, sender.MetaData);
+                audioLoader.Completed += OnTaskCompleted;
+                asyncService.RunTask(audioLoader);
+            } 
         }
     }
 
