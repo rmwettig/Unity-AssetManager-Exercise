@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class WebStreamProcessor
 {
@@ -14,5 +15,5 @@ public abstract class WebStreamProcessor
         return type.Equals(otherType.ToLower());
     }
 
-    public abstract IAsyncTask CreateProcessingTask(WWW stream, AssetInfo metaData);
+    public abstract IAsyncTask CreateProcessingTask(WWW stream, AssetInfo metaData, Notification<IAsset> resultCallback);
 }

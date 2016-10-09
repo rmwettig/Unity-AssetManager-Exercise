@@ -32,17 +32,18 @@ public class WebLoader : IAssetLoader
             //remove delegate as task is not reused later on
             //and allow the object to be GC'ed
             sender.Completed -= OnWebStreamCompleted;
-            for (int i = 0; i < processors.Length;i++ )
+            //find an apropriate task creator
+            for (int i = 0; i < processors.Length; i++)
             {
                 WebStreamProcessor processor = processors[i];
-                if(processor.CanProcessType(sender.MetaData.Type))
+                if (processor.CanProcessType(sender.MetaData.Type))
                 {
-                    asyncService.RunTask(processor.CreateProcessingTask(result, sender.MetaData));
+                    asyncService.RunTask(processor.CreateProcessingTask(result, sender.MetaData, OnTaskCompleted));
                     break;
                 }
             }
 
-                
+
             if (sender.MetaData.Type.ToLower().Equals("character"))
             {
                 LoadCharacterFromStream charLoader = new LoadCharacterFromStream(result, sender.MetaData);
@@ -55,14 +56,22 @@ public class WebLoader : IAssetLoader
                 LoadAudioClipFromStream audioLoader = new LoadAudioClipFromStream(result, sender.MetaData);
                 audioLoader.Completed += OnTaskCompleted;
                 asyncService.RunTask(audioLoader);
-            } 
+            }
+        }
+    }
+
+    private void OnTaskCompleted(IAsset asset)
+    {
+        if (Loaded != null)
+        {
+            Loaded(asset);
         }
     }
 
     private void OnTaskCompleted(LoadCharacterFromStream task, IAsset asset)
     {
         task.Completed -= OnTaskCompleted;
-        if(Loaded != null)
+        if (Loaded != null)
         {
             Loaded(asset);
         }

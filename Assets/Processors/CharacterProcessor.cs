@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CharacterProcessor : WebStreamProcessor
 {
@@ -9,8 +8,10 @@ public class CharacterProcessor : WebStreamProcessor
 
     }
 
-    public override IAsyncTask CreateProcessingTask(WWW stream, AssetInfo metaData)
+    public override IAsyncTask CreateProcessingTask(WWW stream, AssetInfo metaData, Notification<IAsset> resultCallback)
     {
-        return new LoadCharacterFromStream(stream, metaData);
+        LoadCharacterFromStream task = new LoadCharacterFromStream(stream, metaData);
+        task.Completed += resultCallback;
+        return task;
     }
 }

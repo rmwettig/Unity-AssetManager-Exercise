@@ -6,7 +6,7 @@ using System.Collections;
 /// </summary>
 public class LoadCharacterFromStream : IAsyncTask
 {
-    public event Notification<LoadCharacterFromStream, IAsset> Completed = null;
+    public event Notification<IAsset> Completed = null;
 
     private WWW source = null;
     private AssetInfo metaData = null;
@@ -46,7 +46,10 @@ public class LoadCharacterFromStream : IAsyncTask
             if(Completed != null)
             {
                 IAsset asset = new CharacterAsset(metaData, (GameObject)request.allAssets[0]);
-                Completed(this, asset);
+                Completed(asset);
+                //all observers were notified so remove their callbacks
+                //such that this object can be GC'ed
+                Completed = null;
             }
             isDone = request.isDone;
         }
