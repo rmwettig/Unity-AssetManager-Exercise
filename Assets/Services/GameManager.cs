@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeEventHandling()
     {
-        metaDataReader.MetaDataLoaded += assetLoader.OnMetaDataLoaded;
+        metaDataReader.MetaDataLoaded += assetLoader.LoadAsset;
         assetLoader.Loaded += assetManager.AddAsset;
     }
 

@@ -13,12 +13,7 @@ public class WebLoader : IAssetLoader
         processors = streamProcessors;
     }
 
-    public void StartLoading()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnMetaDataLoaded(AssetInfo assetInfo)
+    public void LoadAsset(AssetInfo assetInfo)
     {
         LoadFromWebStream ws = new LoadFromWebStream(assetInfo);
         ws.Completed += OnWebStreamCompleted;
