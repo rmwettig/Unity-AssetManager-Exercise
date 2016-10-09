@@ -9,6 +9,13 @@ public class GameManager : MonoBehaviour
     private IMetaDataReader metaDataReader = null;
     private IAssetLoader assetLoader = null;
     private IAssetManager assetManager = null;
+    private ILogger logger = null;
+
+    private void Awake()
+    {
+        InitializeLogger();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -29,13 +36,18 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("No asset meta info files found.");
+                logger.LogError("No asset meta info files found.");
             }
         }
         else
         {
-            Debug.LogError("Missing AsyncService");
+            logger.LogError("Missing AsyncService");
         }
+    }
+
+    private void InitializeLogger()
+    {
+        logger = new UnityConsoleLogger();
     }
 
     private void InitializeEventHandling()
