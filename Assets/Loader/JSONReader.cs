@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
-
+/// <summary>
+/// Type to return arbitrary results.
+/// </summary>
+/// <typeparam name="T">Type of the result.</typeparam>
+/// <param name="result"></param>
 public delegate void Notification<T>(T result);
 
+/// <summary>
+/// Reads asset metadata from JSON files using Unity's JsonUtility.
+/// </summary>
 public class JSONReader : IMetadataReader
 {
     public event Notification<AssetInfo> MetaDataLoaded = null;

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
+/// <summary>
+/// Represents a game object that can be used as a character.
+/// </summary>
 public class CharacterAsset : IAsset
 {
     private AssetInfo metaData = null;
@@ -21,6 +23,11 @@ public class CharacterAsset : IAsset
         }
     }
 
+    /// <summary>
+    /// Attempts to get the content as the specified type.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>null if content does not match the type.</returns>
     public T TryGetAsType<T>()
     {
         if (gameObject != null)

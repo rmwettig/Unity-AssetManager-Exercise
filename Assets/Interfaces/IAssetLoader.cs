@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-
+﻿/// <summary>
+/// Common members of AssetInfo processors.
+/// </summary>
 public interface IAssetLoader
 {
     event Notification<IAsset> Loaded;

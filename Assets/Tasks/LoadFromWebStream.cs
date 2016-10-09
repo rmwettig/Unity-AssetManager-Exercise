@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Event type that can send both sender and result.
+/// </summary>
+/// <typeparam name="S">Type of the sender.</typeparam>
+/// <typeparam name="T">Type of the result.</typeparam>
+/// <param name="sender"></param>
+/// <param name="result"></param>
 public delegate void Notification<S,T>(S sender, T result);
 
+/// <summary>
+/// Retrieves the data for an asset over the internet.
+/// </summary>
 public class LoadFromWebStream : IAsyncTask
 {
     public event Notification<LoadFromWebStream, WWW> Completed = null;

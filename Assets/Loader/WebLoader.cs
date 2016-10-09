@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
+/// <summary>
+/// Loads actual asset data over the internet by evaluating AssetInfo objects received from IMetadataLoader.
+/// </summary>
 public class WebLoader : IAssetLoader
 {
     public event Notification<IAsset> Loaded = null;
@@ -8,6 +9,11 @@ public class WebLoader : IAssetLoader
     private IAsyncService asyncService = null;
     private WebStreamProcessor[] processors = null;
     private ILogger logger = null;
+    /// <summary>
+    /// Creates an instance without logging.
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="streamProcessors"></param>
     public WebLoader(IAsyncService service, params WebStreamProcessor[] streamProcessors) : this(service, null, streamProcessors) { }
 
     public WebLoader(IAsyncService service, ILogger log, params WebStreamProcessor[] streamProcessors)
@@ -17,6 +23,10 @@ public class WebLoader : IAssetLoader
         logger = log;
     }
 
+    /// <summary>
+    /// Starts an asynchronous web stream for the given metadata.
+    /// </summary>
+    /// <param name="assetInfo"></param>
     public void LoadAsset(AssetInfo assetInfo)
     {
         if(logger!=null)
@@ -28,6 +38,11 @@ public class WebLoader : IAssetLoader
         asyncService.RunTask(ws);
     }
 
+    /// <summary>
+    /// Receives the web stream result and chooses an apropriate evaluation strategy.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="result"></param>
     private void OnWebStreamCompleted(LoadFromWebStream sender, WWW result)
     {
         if (string.IsNullOrEmpty(result.error))

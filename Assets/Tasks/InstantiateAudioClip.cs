@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Creates a game object as an audio source with the loaded soundfile.
+/// </summary>
 public class InstantiateAudioClip : IAsyncTask
 {
 

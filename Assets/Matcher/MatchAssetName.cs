@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-/// <summary>
+﻿/// <summary>
 /// Matches the exact name of an asset
 /// </summary>
 public class MatchAssetName : IAssetMatcher

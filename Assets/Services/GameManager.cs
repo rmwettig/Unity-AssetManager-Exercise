@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// Serves as the entry point of the application. During start-up it prepares instances for processing metadata and loading assets.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     [SerializeField]

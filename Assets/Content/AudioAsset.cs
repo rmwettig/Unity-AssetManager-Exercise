@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
+/// <summary>
+/// Represents an audio asset that can be played by an AudioSource.
+/// </summary>
 public class AudioAsset : IAsset
 {
     private AssetInfo metaData = null;
@@ -21,6 +23,11 @@ public class AudioAsset : IAsset
         }
     }
 
+    /// <summary>
+    /// Attempts to get the content as the specified type.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>null if content does not match the type.</returns>
     public T TryGetAsType<T>()
     {
         if (audioClip.GetType() == typeof(T))

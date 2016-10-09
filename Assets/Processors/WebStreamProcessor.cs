@@ -1,6 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Base class for stream processors.
+/// </summary>
 public abstract class WebStreamProcessor
 {
     private string type = null;

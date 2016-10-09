@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Prints messages to the Unity console using Debug.
+/// </summary>
 public class UnityConsoleLogger : ILogger
 {
     public void LogInfo(string message)

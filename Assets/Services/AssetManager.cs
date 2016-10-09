@@ -1,6 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+/// <summary>
+/// Maintains a collection of IAsset instances.
+/// </summary>
 public class AssetManager : IAssetManager
 {
     private List<IAsset> assets = null;

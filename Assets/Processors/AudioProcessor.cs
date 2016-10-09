@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-
+/// <summary>
+/// Creates an asynchronous task for loading an audio clip.
+/// </summary>
 public class AudioProcessor : WebStreamProcessor
 {
     public AudioProcessor(string type) : base(type) { }

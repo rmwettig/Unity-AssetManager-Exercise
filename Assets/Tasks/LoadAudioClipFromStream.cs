@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Retrieves an audio clip from a web stream.
+/// </summary>
 public class LoadAudioClipFromStream : IAsyncTask
 {
     public event Notification<IAsset> Completed = null;

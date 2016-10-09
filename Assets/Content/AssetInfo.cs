@@ -2,7 +2,7 @@
 using System;
 
 /// <summary>
-/// Meta data of assets
+/// This class holds the metadata of assets.
 /// </summary>
 [Serializable]
 public class AssetInfo
