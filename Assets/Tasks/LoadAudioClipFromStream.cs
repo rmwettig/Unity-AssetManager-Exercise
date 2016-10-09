@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LoadAudioClipFromStream : IAsyncTask
 {
-    public event Notification<LoadAudioClipFromStream, IAsset> Completed = null;
+    public event Notification<IAsset> Completed = null;
 
     private WWW source = null;
     private AssetInfo metaData = null;
@@ -39,7 +39,8 @@ public class LoadAudioClipFromStream : IAsyncTask
             if (Completed != null)
             {
                 IAsset asset = new AudioAsset(metaData, clip);
-                Completed(this, asset);
+                Completed(asset);
+                Completed = null;
             }
             isDone = true;
             yield break;

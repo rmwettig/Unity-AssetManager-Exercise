@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         assetManager = new AssetManager(metaDataFiles.Length);
         metaDataReader = new JSONReader(metaDataFiles);
-        assetLoader = new WebLoader(asyncService, metaDataReader);
+        assetLoader = new WebLoader(asyncService, new CharacterProcessor("character"), new AudioProcessor("audio"));
     }
 
     private void CreatePlayer(IAsyncService asyncService)
