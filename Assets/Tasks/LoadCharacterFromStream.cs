@@ -55,6 +55,7 @@ public class LoadCharacterFromStream : IAsyncTask
         }
         else
         {
+            Completed = null;
             isCanceled = true;
         }
     }

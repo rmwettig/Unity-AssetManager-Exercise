@@ -50,6 +50,7 @@ public class LoadAudioClipFromStream : IAsyncTask
         }
         else
         {
+            Completed = null;
             isCanceled = true;
         }
     }

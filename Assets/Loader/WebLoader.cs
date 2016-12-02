@@ -45,11 +45,11 @@ public class WebLoader : IAssetLoader
     /// <param name="result"></param>
     private void OnWebStreamCompleted(LoadFromWebStream sender, WWW result)
     {
+        //remove delegate as task is not reused later on
+        //and allow the object to be GC'ed
+        sender.Completed -= OnWebStreamCompleted;
         if (string.IsNullOrEmpty(result.error))
         {
-            //remove delegate as task is not reused later on
-            //and allow the object to be GC'ed
-            sender.Completed -= OnWebStreamCompleted;
             //find an apropriate task creator
             for (int i = 0; i < processors.Length; i++)
             {
