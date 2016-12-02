@@ -1,3 +1,6 @@
+This implementation was an exercise for a job interview.
+The task was to re-write an asset management system to load asset bundles over the internet.
+
 
 Folder Summary
 
